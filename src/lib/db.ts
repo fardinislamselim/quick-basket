@@ -1,4 +1,3 @@
-import { CONNREFUSED } from "dns";
 import mongoose from "mongoose";
 
 const mongodb_URL = process.env.MONGODB_URL;
@@ -8,7 +7,7 @@ if (!mongodb_URL) {
 }
 
 let cached = global.mongoose;
-if (cached) {
+if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 
