@@ -1,8 +1,8 @@
+import Credentials from "@auth/core/providers/credentials";
+import bcrypt from "bcryptjs";
 import NextAuth from "next-auth";
 import connectDB from "./lib/db";
-import Credentials from "@auth/core/providers/credentials";
 import User from "./models/user.model";
-import bcrypt from "bcryptjs";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -61,8 +61,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     error: "/login",
   },
   session: {
-    strategy: "database",
-    maxAge: 10 * 24 * 60 * 60 * 1000,
+    // Required for Credentials provider to work.
+    strategy: "jwt",
+    // maxAge is in seconds (10 days)
+    maxAge: 10 * 24 * 60 * 60,
   },
   secret: process.env.BETTER_AUTH_SECRET,
 });

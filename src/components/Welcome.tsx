@@ -75,13 +75,13 @@ const Welcome = ({ setStep }: propType) => {
       >
         <button
           onClick={() => setStep(2)}
-          className="bg-Primary text-white px-30 py-3 rounded-full font-medium hover:bg-Primary/90 transition pointer-coarse "
+          className="bg-Primary text-white px-30 py-3 rounded-full font-medium hover:bg-Primary/90 transition cursor-pointer w-full"
         >
           Next
         </button>
         <p className="text-Text">
           alraedy have an acount?{" "}
-          <Link href={"/login"} className=" text-Primary underline">
+          <Link href={"/login"} className=" text-Primary cursor-pointer underline">
             Login here
           </Link>
         </p>

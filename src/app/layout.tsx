@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Provider from "@/Provider";
 
 export const metadata: Metadata = {
   title: "FreshCart – Full Stack Grocery Delivery Web Application",
@@ -10,13 +10,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true}>
-        {children}
+      <body suppressHydrationWarning>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
