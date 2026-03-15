@@ -11,6 +11,7 @@ import {
 import { motion } from "motion/react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
@@ -24,6 +25,7 @@ const RegisterForm = ({ setStep }: propType) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter()
 
   const isValidEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -50,6 +52,7 @@ const RegisterForm = ({ setStep }: propType) => {
       setName("");
       setEmail("");
       setPassword("");
+      router.push("/login")
     } catch (error) {
       console.error(error);
     } finally {
@@ -214,28 +217,27 @@ const RegisterForm = ({ setStep }: propType) => {
               <span className="text-sm">Or continue with</span>
               <span className="h-px flex-1 bg-white/20" />
             </div>
-
-            <motion.button
-              type="button"
-              whileTap={{ scale: 0.96 }}
-              whileHover={{ scale: 1.02 }}
-              className="w-full flex items-center justify-center gap-2 border border-white/20 py-3 rounded-xl text-Text hover:bg-white/10 transition"
-              onClick={()=>signIn("google")}
-            >
-              <FcGoogle className="w-5 h-5" />
-              Sign up with Google
-            </motion.button>
-
-            <p className="text-center text-Text/70 text-sm">
-              Already have an account?{" "}
-              <Link
-                href={"/login"}
-                className="text-Primary font-semibold cursor-pointer"
-              >
-                Login here
-              </Link>
-            </p>
           </motion.form>
+          <motion.button
+            type="button"
+            whileTap={{ scale: 0.96 }}
+            whileHover={{ scale: 1.02 }}
+            className="w-full flex items-center justify-center gap-2 border border-white/20 py-3 rounded-xl text-Text hover:bg-white/10 transition"
+            onClick={() => signIn("google", { callbackUrl: "/" })}
+          >
+            <FcGoogle className="w-5 h-5" />
+            Sign up with Google
+          </motion.button>
+
+          <p className="text-center text-Text/70 text-sm">
+            Already have an account?{" "}
+            <Link
+              href={"/login"}
+              className="text-Primary font-semibold cursor-pointer"
+            >
+              Login here
+            </Link>
+          </p>
         </motion.div>
       </div>
     </div>

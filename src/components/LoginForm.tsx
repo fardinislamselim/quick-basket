@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
+import { callbackify } from "util";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -26,10 +27,14 @@ const LoginForm = () => {
 
     setIsLoading(true);
     try {
-      await signIn("credentials", {
-        email,
-        password,
-      });
+      await signIn(
+        "credentials",
+        {
+          email,
+          password,
+        },
+        { callbackUrl: "/" },
+      );
       console.log("Login attempt:", { email, password });
     } catch (error) {
       console.error("Login error:", error);
@@ -174,28 +179,27 @@ const LoginForm = () => {
               <span className="text-sm">Or continue with</span>
               <span className="h-px flex-1 bg-white/20" />
             </div>
-
-            <motion.button
-              type="button"
-              whileTap={{ scale: 0.96 }}
-              whileHover={{ scale: 1.02 }}
-              className="w-full flex items-center justify-center gap-2 border border-white/20 py-3 rounded-xl text-Text hover:bg-white/10 transition"
-              onClick={()=>signIn("google")}
-            >
-              <FaGoogle className="w-5 h-5" />
-              Sign in with Google
-            </motion.button>
-
-            <p className="text-center text-Text/70 text-sm">
-              Don&apos;t have an account?{" "}
-              <Link
-                href="/register"
-                className="text-Primary font-semibold cursor-pointer"
-              >
-                Sign up here
-              </Link>
-            </p>
           </motion.form>
+          <motion.button
+            type="button"
+            whileTap={{ scale: 0.96 }}
+            whileHover={{ scale: 1.02 }}
+            className="w-full flex items-center justify-center gap-2 border border-white/20 py-3 rounded-xl text-Text hover:bg-white/10 transition"
+            onClick={() => signIn("google", { callbackUrl: "/" })}
+          >
+            <FaGoogle className="w-5 h-5" />
+            Sign in with Google
+          </motion.button>
+
+          <p className="text-center text-Text/70 text-sm">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/register"
+              className="text-Primary font-semibold cursor-pointer"
+            >
+              Sign up here
+            </Link>
+          </p>
         </motion.div>
       </div>
     </div>
