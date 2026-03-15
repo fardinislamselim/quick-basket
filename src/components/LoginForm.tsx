@@ -180,6 +180,7 @@ const LoginForm = () => {
               whileTap={{ scale: 0.96 }}
               whileHover={{ scale: 1.02 }}
               className="w-full flex items-center justify-center gap-2 border border-white/20 py-3 rounded-xl text-Text hover:bg-white/10 transition"
+              onClick={()=>signIn("google")}
             >
               <FaGoogle className="w-5 h-5" />
               Sign in with Google

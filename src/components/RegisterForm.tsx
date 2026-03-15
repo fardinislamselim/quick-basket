@@ -9,6 +9,7 @@ import {
   User,
 } from "lucide-react";
 import { motion } from "motion/react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
@@ -219,6 +220,7 @@ const RegisterForm = ({ setStep }: propType) => {
               whileTap={{ scale: 0.96 }}
               whileHover={{ scale: 1.02 }}
               className="w-full flex items-center justify-center gap-2 border border-white/20 py-3 rounded-xl text-Text hover:bg-white/10 transition"
+              onClick={()=>signIn("google")}
             >
               <FcGoogle className="w-5 h-5" />
               Sign up with Google
